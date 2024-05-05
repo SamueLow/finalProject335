@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jokeProfile</title>
+    <script>
+        window.onsubmit = validateForm;
+
+        function validateForm() {
+            return window.confirm("Are you sure you want to submit this profile?\n You will not be able to change your information once submitted and will be take to the home page.");
+        }
+    </script>
+</head>
+<body>
+    
+
+    <form action="/jokesProfile" method="post">
+        <fieldset>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required> <br>
+            <input type="checkbox" id="programming" ><label for="programming">Programming</label>
+            <input type="checkbox" id="misc" ><label for="misc">Misc</label>
+            <input type="checkbox" id="dark" ><label for="dark">Dark</label>
+            <input type="checkbox" id="pun" ><label for="pun">Pun</label>
+            <input type="checkbox" id="spooky" ><label for="spooky">Spooky</label>
+        </fieldset>
+        <button type="reset">Reset</button>
+        <button type="submit">Submit Joke Profile</button>
+    </form>
+    <footer>
+        <a href="/">HOME</a>
+    </footer>
+</body>
+</html>

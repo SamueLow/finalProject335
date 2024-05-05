@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profiles</title>
+    <script>
+        function validateForm() {
+            let name = document.getElementById("name").value;
+            if (name == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Showing joke profiles</h1>
+    <%- table %>
+    <form action="/joke" method="post">
+        <label for="name">Write the name of the profile you want a joke from</label>
+        <input type="text" id="name" name="name">
+        <button type="submit">Submit</button>
+    </form>
+    
+    <footer>
+        <a href="/">HOME</a>
+    </footer>
+</body>
+</html>
