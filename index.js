@@ -69,12 +69,21 @@ app.get("/jokesProfile", (req, res) => {
 });
 
 app.post("/jokesProfile", async (req, res) => {
+  console.log(
+    req.body,
+    req.body.name,
+    req.body.programming,
+    req.body.pun,
+    req.body.dark,
+    req.body.misc,
+    req.body.spooky
+  );
   const newJokesProfile = {
     name: req.body.name,
     programming: req.body.programming,
-    puns: req.body.puns,
+    puns: req.body.pun,
     dark: req.body.dark,
-    miscellaneous: req.body.miscellaneous,
+    miscellaneous: req.body.misc,
     spooky: req.body.spooky,
   };
 
@@ -85,9 +94,31 @@ app.post("/jokesProfile", async (req, res) => {
 app.get("/profileList", async (req, res) => {
   const profiles = await collection.find({}).toArray();
   let table = '<table border="1">';
-  table += "<tr><th>Names of joke profiles </th></tr>";
+  let jokeTypes = "";
+  table +=
+    "<tr><th>Names of joke profiles </th><th> Types of jokes they like</th></tr>";
   profiles.forEach((profile) => {
-    table += `<tr><td>${profile.name}</td></tr>`;
+    jokeTypes = "";
+    if (profile.programming) {
+      jokeTypes += "Programming, ";
+    }
+    if (profile.puns) {
+      jokeTypes += "Puns, ";
+    }
+    if (profile.dark) {
+      jokeTypes += "Dark, ";
+    }
+    if (profile.miscellaneous) {
+      jokeTypes += "Miscellaneous, ";
+    }
+    if (profile.spooky) {
+      jokeTypes += "Spooky, ";
+    }
+    if (jokeTypes === "") {
+      jokeTypes += "Any, ";
+    }
+    jokeTypes = jokeTypes.slice(0, -2);
+    table += `<tr><td>${profile.name}</td><td>${jokeTypes}</td></tr>`;
   });
   res.render("profileList", { table });
 });
@@ -116,6 +147,11 @@ app.post("/joke", async (req, res) => {
   const joke = await fetch(requestString).then((response) => response.text());
 
   res.render("joke", { joke });
+});
+
+app.post("/removeAll", async (req, res) => {
+  await collection.deleteMany({});
+  res.render("home");
 });
 
 app.listen(port, () => {
